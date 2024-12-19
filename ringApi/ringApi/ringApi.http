@@ -1,0 +1,6 @@
+@ringApi_HostAddress = http://localhost:5159
+
+GET {{ringApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

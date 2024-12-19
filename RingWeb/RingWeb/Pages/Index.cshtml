@@ -1,0 +1,127 @@
+﻿@page
+
+@using RingWeb
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Listar anéis";
+}
+<!-- HTML -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<h1 class="text-center">Todos os anéis</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
+@if (Model.Rings != null && Model.Rings.Count > 0)
+{
+    <div id="carouselExampleControls" class="carousel slide custom-carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.Rings.Count; i++)
+            {
+                var item = Model.Rings[i];
+                <div class="carousel-item @(i == 0 ? "active" : "") custom-carousel-wrapper">
+                    <div class="card mx-auto card-custom" style="width: 18rem;">
+                        <img src="@item.ImageUrl" class="card-img-top card-img-custom" alt="@item.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text"><strong>Poder:</strong> @item.Power</p>
+                            <p class="card-text"><strong>Portador:</strong> @item.OwnerName</p>
+                            @if (@item.OwnerRace == 1)
+                            {
+                                <p class="card-text"><strong>Raça do portador:</strong> Elfo</p>
+                            }
+                            @if (@item.OwnerRace == 2)
+                            {
+                                <p class="card-text"><strong>Raça do portador:</strong> Anão</p>
+                            }
+                            @if (@item.OwnerRace == 3)
+                            {
+                                <p class="card-text"><strong>Raça do portador:</strong> Homem</p>
+                            }
+                            @if (@item.OwnerRace == 4)
+                            {
+                                <p class="card-text"><strong>Raça do portador:</strong> Sauron</p>
+                            }
+                            
+                            <p class="card-text"><strong>Forjado por:</strong> @item.ForgedBy</p>
+                            <div class="d-flex gap-2">
+                                <a href="/Add/@item.Id" class="btn btn-success">
+                                    <i class="fas fa-pen"></i> Editar
+                                </a>
+
+
+                                <form method="post">
+                                    <button type="submit" formaction="?handler=Delete&id=@item.Id" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (Model.Rings.Count > 1)
+        {
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        }
+    </div>
+}
+else
+{
+    <p class="text-center">Nenhum anél encontrado.</p>
+}
+
+
+<!-- ESTILIZAÇÃO -->
+<style>
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: black;
+        border-radius: 50%;
+    }
+
+    
+    .carousel-control-prev-icon:hover,
+    .carousel-control-next-icon:hover {
+       background-color: #333; 
+    }
+
+    .card-img-custom {
+        max-width: 270px;
+        max-height: 270px;
+        min-width: 270px;
+        min-height: 270px;
+        object-fit: cover; 
+        border-radius:1rem;
+    }
+
+    .card-custom {
+        min-width: 300px; 
+        max-width: 300px;
+        min-height: 550px;
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-between; 
+        padding: 15px; 
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 8px; 
+        overflow: hidden;
+        margin-bottom:5rem;
+    }
+
+    .btn-success i, .btn-danger i {
+        margin-right: 5px; /* Espaçamento entre o ícone e o texto */
+    }
+
+
+</style>

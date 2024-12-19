@@ -1,0 +1,63 @@
+﻿@page "{id?}" 
+@model AddModel
+
+@{
+    ViewData["Title"] = Model.IsEdit ? "Editar Anel" : "Adicionar Anel";
+}
+
+
+
+<PageTitle>@ViewData["Title"]</PageTitle>
+
+<form method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome do Anel</label>
+        <input type="text" class="form-control" id="name" name="Name" value="@Model.Ring.Name" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="power" class="form-label">Poder do anél</label>
+        <textarea class="form-control" id="power" name="Power" rows="3" required>@Model.Ring.Power</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="owner" class="form-label">Nome do Portador</label>
+        <input type="text" class="form-control" id="owner" name="OwnerName" value="@Model.Ring.OwnerName" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="race" class="form-label">Raça do portador</label>
+        <select class="form-select" id="race" name="OwnerRace" required>
+            <option value="">Selecione uma Raça do portador</option>
+            <option value="1" selected="@(Model.Ring.OwnerRace == 1)">Elfo</option>
+            <option value="2" selected="@(Model.Ring.OwnerRace == 2)">Anão</option>
+            <option value="3" selected="@(Model.Ring.OwnerRace == 3)">Homem</option>
+            <option value="4" selected="@(Model.Ring.OwnerRace == 4)">Sauron</option>
+
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="forgedBy" class="form-label">Forjado Por</label>
+        <input type="text" class="form-control" id="forgedBy" name="ForgedBy" value="@Model.Ring.ForgedBy" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Imagem</label>
+        <select class="form-select" id="image" name="ImageUrl" required>
+            <option value="">Selecione uma Imagem</option>
+            <option value="@(Model.aneis[0])" selected="@(Model.Ring.ImageUrl == Model.aneis[0])">Narya, o Anel do Fogo</option>
+            <option value="@(Model.aneis[1])" selected="@(Model.Ring.ImageUrl == Model.aneis[1])">Nenya, o Anel da Água</option>
+            <option value="@(Model.aneis[2])" selected="@(Model.Ring.ImageUrl == Model.aneis[2])">Vilya, o Anel do Ar</option>
+            <option value="@(Model.aneis[3])" selected="@(Model.Ring.ImageUrl == Model.aneis[3])">Um Anel</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="/" class="btn btn-secondary">Cancelar</a>
+</form>
+
